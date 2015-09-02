@@ -49,6 +49,8 @@ def mode_config( conn, mode):
 
 def usage():
     print(u"\npyradiocontrol.py usage:")
+    print(u"\t-s or --serial")
+    print(u"\t\tSet serial device. On Windows e.g. COM5, On Mac or Linux e.g. /dev/cu.usbserial")
     print(u"\t-f or --frequency")
     print(u"\t\tSet frequency of radio. e.g. 146.640")
     print(u"\t-m or --mode")
