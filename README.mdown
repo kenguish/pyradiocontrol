@@ -8,6 +8,8 @@ pyradiocontrol allows programmatic controls of Yaesu FT-857D. Other radio models
 
 ## Usage
 <pre>pyradiocontrol.py usage:
+	-s or --serial
+		Set serial device. On Windows e.g. COM5, On Mac or Linux e.g. /dev/cu.usbserial
 	-f or --frequency
 		Set frequency of radio. e.g. 146.640
 	-m or --mode
