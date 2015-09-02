@@ -1,6 +1,3 @@
-# 
-# https://pd7l.wordpress.com/2014/05/21/212/
-# 
 
 import serial, struct
 import getopt, sys
@@ -39,6 +36,10 @@ def mode_config( ser, mode):
             hex_command = yaesu_commands[mode.upper()]
             
             exec("hex4 = 0x%s" % (hex_command, )) 
+            
+            # Inspiration from PD7L on the initial python struct implementation
+            # https://pd7l.wordpress.com/2014/05/21/212/
+            # 
             
             data = struct.pack('BBBBB', hex4, 0x00, 0x00, 0x00, 0x07)
             ser.write(data)
