@@ -2,7 +2,7 @@
 import serial, struct
 import getopt, sys
 
-def frequency_config( ser, frequency ):
+def frequency_config( conn, frequency ):
     the_padded_frequency = frequency.replace(".", "") 
     
     group1 = the_padded_frequency[0:2]
@@ -14,13 +14,13 @@ def frequency_config( ser, frequency ):
     exec("hex3 = 0x%s" % (group3, )) 
     
     data = struct.pack('BBBBB', hex1, hex2, hex3, 0x00, 0x01)
-    ser.write(data)
+    conn.write(data)
     
-    s = ser.read(1)
+    s = conn.read(1)
     print( ">> Frequency ack: %s" % s )
     
 
-def mode_config( ser, mode):
+def mode_config( conn, mode):
     valid_mode = {
         '00' : 'LSB', '01' : 'USB',
         '02' : 'CW', '03' : 'CWR',
@@ -40,10 +40,9 @@ def mode_config( ser, mode):
             # Inspiration from PD7L on the initial python struct implementation
             # https://pd7l.wordpress.com/2014/05/21/212/
             # 
-            
             data = struct.pack('BBBBB', hex4, 0x00, 0x00, 0x00, 0x07)
-            ser.write(data)
-            s = ser.read(1)
+            conn.write(data)
+            s = conn.read(1)
             print( ">> Mode ack: %s" % s )
     else:
         print("Invalid mode")
@@ -85,7 +84,7 @@ def radio_control():
             sys.exit(2)
     
     if len( commands ) > 0 and serial_port:
-        ser = serial.Serial(
+        conn = serial.Serial(
           port=serial_port,
           baudrate=4800,
           parity=serial.PARITY_NONE,
@@ -93,17 +92,16 @@ def radio_control():
           bytesize=serial.EIGHTBITS
         )
     
-        if ser.isOpen():
+        if conn.isOpen():
             print(u"Serial port %s connnected" % serial_port)
             
             for c in commands:
-                c[0]( ser, c[1] )
+                c[0]( conn, c[1] )
     
-            ser.close()
+            conn.close()
             print(u"Serial port %s closed" % serial_port)
     else:
         usage()  
 
 if __name__ == "__main__":
     radio_control()
-    
