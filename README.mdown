@@ -1,0 +1,18 @@
+pyradiocontrol
+======================
+Originally posted on: September 2, 2015
+
+pyradiocontrol allows programmatic controls of Yaesu FT-857D. Other radio models are to be followed.
+
+[![](https://github.com/kenguish/pyradiocontrol/blob/master/Documentations/Screenshots/screenshot.jpg)](https://github.com/kenguish/pyradiocontrol/blob/master/Documentations/Screenshots/screenshot.jpg)
+
+## Usage
+
+pyradiocontrol.py usage:
+	-f or --frequency
+		Set frequency of radio. e.g. 146.640
+	-m or --mode
+		Set mode of radio. Valid modes: LSB, USB, CW, CWR, AM, FM, FM-N, DIG, PKT
+
+## Credits
+Inspiration from PD7L on the initial python struct implementation https://pd7l.wordpress.com/2014/05/21/212/
