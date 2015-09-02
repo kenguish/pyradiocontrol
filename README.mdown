@@ -4,7 +4,7 @@ Originally posted on: September 2, 2015
 
 pyradiocontrol allows programmatic controls of Yaesu FT-857D. Other radio models are to be followed.
 
-[![](https://github.com/kenguish/pyradiocontrol/blob/master/Documentations/Screenshots/screenshot.jpg)](https://github.com/kenguish/pyradiocontrol/blob/master/Documentations/Screenshots/screenshot.jpg)
+[![](https://github.com/kenguish/pyradiocontrol/blob/master/documentations/Screenshots/screenshot.jpg)](https://github.com/kenguish/pyradiocontrol/blob/master/documentations/Screenshots/screenshot.jpg)
 
 ## Usage
 
