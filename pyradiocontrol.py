@@ -3,17 +3,21 @@ import serial, struct
 import getopt, sys
 
 def frequency_config( conn, frequency ):
+    frequency = "%010.6f" % float( frequency )
     the_padded_frequency = frequency.replace(".", "") 
+    print(u"the_padded_frequency: %s" % the_padded_frequency)
     
     group1 = the_padded_frequency[0:2]
     group2 = the_padded_frequency[2:4]
     group3 = the_padded_frequency[4:6]
+    group4 = the_padded_frequency[4:6]
     
     exec("hex1 = 0x%s" % (group1, )) 
     exec("hex2 = 0x%s" % (group2, )) 
     exec("hex3 = 0x%s" % (group3, )) 
+    exec("hex4 = 0x%s" % (group4, )) 
     
-    data = struct.pack('BBBBB', hex1, hex2, hex3, 0x00, 0x01)
+    data = struct.pack('BBBBB', hex1, hex2, hex3, hex4, 0x01)
     conn.write(data)
     
     s = conn.read(1)
@@ -52,7 +56,7 @@ def usage():
     print(u"\t-s or --serial")
     print(u"\t\tSet serial device. On Windows e.g. COM5, On Mac or Linux e.g. /dev/cu.usbserial")
     print(u"\t-f or --frequency")
-    print(u"\t\tSet frequency of radio. e.g. 146.640")
+    print(u"\t\tSet frequency of radio in MHz. e.g. 146.640")
     print(u"\t-m or --mode")
     print(u"\t\tSet mode of radio. Valid modes: LSB, USB, CW, CWR, AM, FM, FM-N, DIG, PKT")
     print(u"\n")
@@ -74,6 +78,10 @@ def radio_control():
             print(u"Setting Serial Port to: %s" % arg)
             serial_port = arg
         elif opt in ('-f', '--frequency'):
+            if not arg.replace('.','',1).isdigit():
+                print(u"Please enter a valid frequency. e.g. 146.650")
+                sys.exit(2)
+            
             print(u"Setting frequency: %s" % arg)
             commands.append( [frequency_config, arg] )
         elif opt in ('-m', '--mode'):
